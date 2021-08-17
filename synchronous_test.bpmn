@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0lg1768" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="synchronous_test" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0fpp2c0</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_09avgfj" name="MRI Import" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">https://9afc913dfbf8.ngrok.io/test</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="content-type">application/json</camunda:entry>
+                <camunda:entry key="accept">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload" />
+            <camunda:outputParameter name="responseCode">
+              <camunda:script scriptFormat="JavaScript">connector.getVariable("statusCode")</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0fpp2c0</bpmn:incoming>
+      <bpmn:outgoing>Flow_18tpyl6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_1125te4" name="Do something" camunda:assignee="john">
+      <bpmn:incoming>Flow_18tpyl6</bpmn:incoming>
+      <bpmn:outgoing>Flow_1txo5nl</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_06oq6pf">
+      <bpmn:incoming>Flow_1txo5nl</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1txo5nl" sourceRef="Activity_1125te4" targetRef="Event_06oq6pf" />
+    <bpmn:sequenceFlow id="Flow_18tpyl6" sourceRef="Activity_09avgfj" targetRef="Activity_1125te4" />
+    <bpmn:sequenceFlow id="Flow_0fpp2c0" sourceRef="StartEvent_1" targetRef="Activity_09avgfj" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="synchronous_test">
+      <bpmndi:BPMNEdge id="Flow_0fpp2c0_di" bpmnElement="Flow_0fpp2c0">
+        <di:waypoint x="215" y="121" />
+        <di:waypoint x="258" y="121" />
+        <di:waypoint x="258" y="120" />
+        <di:waypoint x="300" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18tpyl6_di" bpmnElement="Flow_18tpyl6">
+        <di:waypoint x="400" y="120" />
+        <di:waypoint x="510" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1txo5nl_di" bpmnElement="Flow_1txo5nl">
+        <di:waypoint x="610" y="120" />
+        <di:waypoint x="672" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09avgfj_di" bpmnElement="Activity_09avgfj">
+        <dc:Bounds x="300" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1125te4_di" bpmnElement="Activity_1125te4">
+        <dc:Bounds x="510" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_06oq6pf_di" bpmnElement="Event_06oq6pf">
+        <dc:Bounds x="672" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
